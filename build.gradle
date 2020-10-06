@@ -10,15 +10,16 @@ sourceCompatibility = '1.8'
 
 apply plugin: 'application'
 
-repositories {
-    mavenCentral()
+configurations {
+    provided
 }
 
-def defaultEncoding = 'UTF-8'
-tasks.withType(AbstractCompile) each { it.options.encoding = defaultEncoding }
+sourceSets {
+    main { compileClasspath += configurations.provided }
+}
 
-compileTestJava {
-    options.encoding = defaultEncoding
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -26,11 +27,17 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+//    provided group: 'org.projectlombok', name: 'lombok', version: '1.16.4'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.4'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.16.4'
 }
 
 test {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 mainClassName = 'org.example.BootApp'
