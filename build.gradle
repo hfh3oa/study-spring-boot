@@ -22,14 +22,15 @@ repositories {
     mavenCentral()
 }
 
+def lombokVersion = '1.18.12'
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-//    provided group: 'org.projectlombok', name: 'lombok', version: '1.16.4'
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.4'
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.16.4'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 }
 
 test {
